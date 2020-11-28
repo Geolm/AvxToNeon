@@ -629,7 +629,7 @@ FORCE_INLINE void _mm256_zeroupper(void)
 {
     return;  // 256位寄存器高128位置0，arm寄存器最大128位，该接口不作为
 }
-
+/*
 FORCE_INLINE __m256i _mm256_sll_epi32(__m256i a, __m128i count)
 {
     long long c = count.vect_s64[0];
@@ -681,7 +681,7 @@ FORCE_INLINE __m256i _mm256_slli_epi64(__m256i a, int imm8)
         result_m256i.vect_s64[1] = vdupq_n_s64(0);
     } 
     return result_m256i;
-}
+}*/
 
 FORCE_INLINE __m256i _mm256_srli_epi64(__m256i a, int imm8)
 {
@@ -697,7 +697,7 @@ FORCE_INLINE __m256i _mm256_srli_epi64(__m256i a, int imm8)
     } 
     return result_m256i;
 }
-
+/*
 FORCE_INLINE __m256i _mm256_slli_si256(__m256i a, const int imm8)
 {
     assert(imm8 >=0 && imm8 <256);
@@ -728,7 +728,7 @@ FORCE_INLINE __m256i _mm256_srli_si256(__m256i a, const int imm8)
         result_m256i.vect_s8[1] = vdupq_n_s8(0);
     } 
     return result_m256i;
-}
+}*/
 
 FORCE_INLINE __m256i _mm256_unpackhi_epi8(__m256i a, __m256i b)
 {
@@ -1313,7 +1313,7 @@ FORCE_INLINE __m256 _mm256_insertf128_ps(__m256 a, __m128 b, int imm8)
     res.vect_f32[1] = vbslq_f32(vmask, a.vect_f32[1], b);
     return res;
 }
-
+/*
 FORCE_INLINE __m256i _mm256_insert_epi32 (__m256i a, __int32 i, const int index)
 {
     assert(index >= 0 && index <= 7);
@@ -1335,7 +1335,7 @@ FORCE_INLINE __m256i _mm256_insert_epi64 (__m256i a, __int64 i, const int index)
     }
     return a;
 }
-
+*/
 FORCE_INLINE __m256i _mm256_cmpgt_epi32 (__m256i a, __m256i b)
 {
     __m256i res;

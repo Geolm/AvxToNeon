@@ -937,7 +937,7 @@ FORCE_INLINE __m512 _mm512_mul_round_ps(__m512 a, __m512 b, int rounding)
     res_m512.vect_f32[3] = vmulq_f32(a.vect_f32[3], b.vect_f32[3]);
     return res_m512;
 }
-
+/*
 FORCE_INLINE __m512i _mm512_sll_epi64(__m512i a, __m128i count)
 {
     int c = count.vect_s64[0];
@@ -972,7 +972,7 @@ FORCE_INLINE __m512i _mm512_slli_epi64(__m512i a, unsigned int imm8)
     }
     return result_m512i;
 }
-
+*/
 FORCE_INLINE __m512i _mm512_srli_epi64(__m512i a, unsigned int imm8)
 {
     __m512i result_m512i;
@@ -990,7 +990,7 @@ FORCE_INLINE __m512i _mm512_srli_epi64(__m512i a, unsigned int imm8)
     } 
     return result_m512i;
 }
-
+/*
 FORCE_INLINE __m512i _mm512_bslli_epi128(__m512i a, const int imm8)
 {
     assert(imm8 >= 0 && imm8 <= 255);
@@ -1030,7 +1030,7 @@ FORCE_INLINE __m512i _mm512_bsrli_epi128(__m512i a, const int imm8)
     }
     return res_m512i;
 }
-
+*/
 FORCE_INLINE __m512i _mm512_unpackhi_epi8(__m512i a, __m512i b)
 {
     __m512i result_m512i;

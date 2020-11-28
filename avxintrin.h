@@ -904,7 +904,9 @@ FORCE_INLINE __m256i _mm256_permute2f128_si256 (__m256i a, __m256i b, int imm8)
     if (bit_3) {
         res.vect_s32[0] = vdupq_n_s32(0);
     }
-    bit_0 = (imm8 & 0x10) >> 4, bit_1 = imm8 & 0x20, bit_3 = imm8 & 0x80;
+    bit_0 = (imm8 & 0x10) >> 4;
+    bit_1 = imm8 & 0x20;
+    bit_3 = imm8 & 0x80;
     if (bit_1 == 0) {
         res.vect_s32[1] = a.vect_s32[bit_0];
     } else {

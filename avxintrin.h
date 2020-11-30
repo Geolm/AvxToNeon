@@ -754,6 +754,14 @@ FORCE_INLINE __m256i _mm256_and_si256(__m256i a, __m256i b)
     return res_m256i;
 }
 
+FORCE_INLINE __m256 _mm256_and_ps(__m256 a, __m256 b)
+{
+    __m256 res_m256;
+    res_m256.vect_f32[0] = vandq_s32(a.vect_f32[0], b.vect_f32[0]);
+    res_m256.vect_f32[1] = vandq_s32(a.vect_f32[1], b.vect_f32[1]);
+    return res_m256;
+}
+
 FORCE_INLINE __m256i _mm256_andnot_si256(__m256i a, __m256i b)
 {
     __m256i res_m256i;

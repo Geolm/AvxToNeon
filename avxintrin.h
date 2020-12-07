@@ -494,6 +494,22 @@ FORCE_INLINE __m256 _mm256_mul_ps(__m256 a, __m256 b)
     return res_m256;
 }
 
+FORCE_INLINE __m256 _mm256_min_ps(__m256 a, __m256 b)
+{
+    __m256 res_m256;
+    res_m256.vect_f32[0] = vminq_f32(a.vect_f32[0], b.vect_f32[0]);
+    res_m256.vect_f32[1] = vminq_f32(a.vect_f32[1], b.vect_f32[1]);
+    return res_m256;
+}
+
+FORCE_INLINE __m256 _mm256_max_ps(__m256 a, __m256 b)
+{
+    __m256 res_m256;
+    res_m256.vect_f32[0] = vmaxq_f32(a.vect_f32[0], b.vect_f32[0]);
+    res_m256.vect_f32[1] = vmaxq_f32(a.vect_f32[1], b.vect_f32[1]);
+    return res_m256;
+}
+
 FORCE_INLINE __m256i _mm256_mulhi_epi16(__m256i a, __m256i b)
 {
     __asm__ __volatile__ (
@@ -754,14 +770,6 @@ FORCE_INLINE __m256i _mm256_and_si256(__m256i a, __m256i b)
     return res_m256i;
 }
 
-FORCE_INLINE __m256 _mm256_and_ps(__m256 a, __m256 b)
-{
-    __m256 res_m256;
-    res_m256.vect_f32[0] = vandq_s32(a.vect_f32[0], b.vect_f32[0]);
-    res_m256.vect_f32[1] = vandq_s32(a.vect_f32[1], b.vect_f32[1]);
-    return res_m256;
-}
-
 FORCE_INLINE __m256i _mm256_andnot_si256(__m256i a, __m256i b)
 {
     __m256i res_m256i;
@@ -787,6 +795,14 @@ FORCE_INLINE __m256 _mm256_or_ps (__m256 a, __m256 b)
         :"w"(b.vect_f32[0]), "w"(b.vect_f32[1])
     );
     return a;
+}
+
+FORCE_INLINE __m256 _mm256_and_ps(__m256 a, __m256 b)
+{
+    __m256 res_m256;
+    res_m256.vect_f32[0] = vandq_s32(a.vect_f32[0], b.vect_f32[0]);
+    res_m256.vect_f32[1] = vandq_s32(a.vect_f32[1], b.vect_f32[1]);
+    return res_m256;
 }
 
 FORCE_INLINE __m256d _mm256_or_pd (__m256d a, __m256d b)

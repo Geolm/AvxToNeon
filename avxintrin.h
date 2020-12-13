@@ -645,59 +645,7 @@ FORCE_INLINE void _mm256_zeroupper(void)
 {
     return;  // 256位寄存器高128位置0，arm寄存器最大128位，该接口不作为
 }
-/*
-FORCE_INLINE __m256i _mm256_sll_epi32(__m256i a, __m128i count)
-{
-    long long c = count.vect_s64[0];
-    __m256i result_m256i;
-    if (likely(c >= 0 && c < 32)) {
-        result_m256i.vect_s32[0] = vshlq_n_s32(a.vect_s32[0], c);
-        result_m256i.vect_s32[1] = vshlq_n_s32(a.vect_s32[1], c);
-    } else {
-        result_m256i.vect_s32[0] = vdupq_n_s32(0);
-        result_m256i.vect_s32[1] = vdupq_n_s32(0);
-    } 
-    return result_m256i;
-}
-FORCE_INLINE __m256i _mm256_sll_epi64(__m256i a, __m128i count)
-{
-    long long c = count.vect_s64[0];
-    __m256i result_m256i;
-    if (likely(c >= 0 && c < 64)) {
-        result_m256i.vect_s64[0] = vshlq_n_s64(a.vect_s64[0], c);
-        result_m256i.vect_s64[1] = vshlq_n_s64(a.vect_s64[1], c);
-    } else {
-        result_m256i.vect_s64[0] = vdupq_n_s64(0);
-        result_m256i.vect_s64[1] = vdupq_n_s64(0);
-    } 
-    return result_m256i;
-}
 
-FORCE_INLINE __m256i _mm256_slli_epi32(__m256i a, int imm8)
-{
-    __m256i result_m256i;
-    if (likely(imm8 >= 0 && imm8 < 32)) {
-        result_m256i.vect_s32[0] = vshlq_n_s32(a.vect_s32[0], imm8);
-        result_m256i.vect_s32[1] = vshlq_n_s32(a.vect_s32[1], imm8);
-    } else {
-        result_m256i.vect_s32[0] = vdupq_n_s32(0);
-        result_m256i.vect_s32[1] = vdupq_n_s32(0);
-    } 
-    return result_m256i;
-}
-
-FORCE_INLINE __m256i _mm256_slli_epi64(__m256i a, int imm8)
-{
-    __m256i result_m256i;
-    if (likely(imm8 >= 0 && imm8 < 64)) {
-        result_m256i.vect_s64[0] = vshlq_n_s64(a.vect_s64[0], imm8);
-        result_m256i.vect_s64[1] = vshlq_n_s64(a.vect_s64[1], imm8);
-    } else {
-        result_m256i.vect_s64[0] = vdupq_n_s64(0);
-        result_m256i.vect_s64[1] = vdupq_n_s64(0);
-    } 
-    return result_m256i;
-}*/
 
 FORCE_INLINE __m256i _mm256_srli_epi64(__m256i a, int imm8)
 {
@@ -713,38 +661,6 @@ FORCE_INLINE __m256i _mm256_srli_epi64(__m256i a, int imm8)
     } 
     return result_m256i;
 }
-/*
-FORCE_INLINE __m256i _mm256_slli_si256(__m256i a, const int imm8)
-{
-    assert(imm8 >=0 && imm8 <256);
-    __m256i result_m256i;
-    if (likely(imm8 > 0 && imm8 <= 15)) {
-        result_m256i.vect_s8[0] = vextq_s8(vdupq_n_s8(0), a.vect_s8[0], 16 - imm8);
-        result_m256i.vect_s8[1] = vextq_s8(vdupq_n_s8(0), a.vect_s8[1], 16 - imm8);
-    } else if (imm8 == 0) {
-        result_m256i = a;
-    } else {
-        result_m256i.vect_s8[0] = vdupq_n_s8(0);
-        result_m256i.vect_s8[1] = vdupq_n_s8(0);
-    }
-    return result_m256i;
-}
-
-FORCE_INLINE __m256i _mm256_srli_si256(__m256i a, const int imm8)
-{
-    assert(imm8 >=0 && imm8 <256);
-    __m256i result_m256i;
-    if (likely(imm8 > 0 && imm8 <= 15)) {
-        result_m256i.vect_s8[0] = vextq_s8(a.vect_s8[0], vdupq_n_s8(0), imm8);
-        result_m256i.vect_s8[1] = vextq_s8(a.vect_s8[1], vdupq_n_s8(0), imm8);
-    } else if (imm8 == 0) {
-        result_m256i = a;
-    } else {
-        result_m256i.vect_s8[0] = vdupq_n_s8(0);
-        result_m256i.vect_s8[1] = vdupq_n_s8(0);
-    } 
-    return result_m256i;
-}*/
 
 FORCE_INLINE __m256i _mm256_unpackhi_epi8(__m256i a, __m256i b)
 {
@@ -802,6 +718,14 @@ FORCE_INLINE __m256 _mm256_and_ps(__m256 a, __m256 b)
     __m256 res_m256;
     res_m256.vect_f32[0] = vandq_s32(a.vect_f32[0], b.vect_f32[0]);
     res_m256.vect_f32[1] = vandq_s32(a.vect_f32[1], b.vect_f32[1]);
+    return res_m256;
+}
+
+FORCE_INLINE __m256 _mm256_andnot_ps(__m256 a, __m256 b)
+{
+    __m256 res_m256;
+    res_m256.vect_f32[0] = vbicq_s32(b.vect_f32[0], a.vect_f32[0]);  // *NOTE* argument swap
+    res_m256.vect_f32[1] = vbicq_s32(b.vect_f32[1], a.vect_f32[1]); 
     return res_m256;
 }
 
@@ -1339,29 +1263,7 @@ FORCE_INLINE __m256 _mm256_insertf128_ps(__m256 a, __m128 b, int imm8)
     res.vect_f32[1] = vbslq_f32(vmask, a.vect_f32[1], b);
     return res;
 }
-/*
-FORCE_INLINE __m256i _mm256_insert_epi32 (__m256i a, __int32 i, const int index)
-{
-    assert(index >= 0 && index <= 7);
-    if (index > 3) {
-        a.vect_s32[1] = vsetq_lane_s32(i, a.vect_s32[1], index & 3);
-    } else {
-        a.vect_s32[0] = vsetq_lane_s32(i, a.vect_s32[0], index);
-    }
-    return a;
-}
 
-FORCE_INLINE __m256i _mm256_insert_epi64 (__m256i a, __int64 i, const int index)
-{
-    assert(index >= 0 && index <= 3);
-    if (index > 1) {
-        a.vect_s64[1] = vsetq_lane_s64(i, a.vect_s64[1], index & 1);
-    } else {
-        a.vect_s64[0] = vsetq_lane_s64(i, a.vect_s64[0], index);
-    }
-    return a;
-}
-*/
 FORCE_INLINE __m256i _mm256_cmpgt_epi32 (__m256i a, __m256i b)
 {
     __m256i res;

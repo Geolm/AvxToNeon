@@ -348,19 +348,6 @@ FORCE_INLINE __m128i _mm_div_epu16(__m128i a, __m128i b)
     res_m128i.vect_u16 = vcombine_u16(vmovn_u32(vcvtq_u32_f32(res_lo)), vmovn_u32(vcvtq_u32_f32(res_hi)));
     return res_m128i;
 }
-/*
-FORCE_INLINE __m128i _mm_sll_epi64(__m128i a, __m128i count)
-{
-    long long c = count.vect_s64[0];
-    int mc = c;
-    __m128i result_m128i;
-    if (likely(c >= 0 && c < 64)) {
-        result_m128i.vect_s64 = vshlq_n_s64(a.vect_s64, mc);
-    } else {
-        result_m128i.vect_s64 = vdupq_n_s64(0);
-    } 
-    return result_m128i;
-}*/
 
 FORCE_INLINE __m128i _mm_cmpeq_epi64(__m128i a, __m128i b)
 {
@@ -827,14 +814,7 @@ FORCE_INLINE __m128i _mm_cmpestrm(__m128i a, int la, __m128i b, int lb, const in
 
     return dst;
 }
-/*
-FORCE_INLINE __m128i _mm_insert_epi32 (__m128i a, int i, const int imm8)
-{
-    assert(imm8 >= 0 && imm8 <= 3);
-    a.vect_s32 = vsetq_lane_s32(i, a.vect_s32, imm8);
-    return a;
-}
-*/
+
 FORCE_INLINE __m128i _mm_load_epi32 (void const* mem_addr)
 {
     __m128i res;
@@ -1011,57 +991,7 @@ FORCE_INLINE __m128i _mm_setzero_si128()
     res.vect_s32 = vdupq_n_s32(0);
     return res;
 }
-/*
-FORCE_INLINE __m128i _mm_slli_si128 (__m128i a, int imm8)
-{
-    assert(imm8 >=0 && imm8 < 256);
-    __m128i res;
-    if (likely(imm8 > 0 && imm8 <= 15)) {
-        res.vect_s8 = vextq_s8(vdupq_n_s8(0), a.vect_s8, 16 - (imm8));
-    } else if (imm8 == 0) {
-        res = a;
-    } else {
-        res.vect_s8 = vdupq_n_s8(0);
-    }
-    return res;
-}
 
-FORCE_INLINE __m128i _mm_srli_si128 (__m128i a, int imm8)
-{
-    assert(imm8 >=0 && imm8 < 256);
-    __m128i res;
-    if (likely(imm8 > 0 && imm8 <= 15)) {
-        res.vect_s8 = vextq_s8(a.vect_s8, vdupq_n_s8(0), (imm8));
-    } else if (imm8 == 0) {
-        res = a;
-    } else {
-        res.vect_s8 = vdupq_n_s8(0);
-    }
-    return res;
-}
-
-FORCE_INLINE __m128i _mm_slli_epi32 (__m128i a, int imm8)
-{
-    __m128i res;
-    if (likely(imm8 >= 0 && imm8 < 32)) {
-        res.vect_s32 = vshlq_n_s32(a.vect_s32, imm8);
-    } else {
-        res.vect_s32 = vdupq_n_s32(0);
-    } 
-    return res;
-}
-
-FORCE_INLINE __m128i _mm_slli_epi64 (__m128i a, int imm8)
-{
-    __m128i res;
-    if (likely(imm8 >= 0 && imm8 < 64)) {
-        res.vect_s64 = vshlq_n_s64(a.vect_s64, imm8);
-    } else {
-        res.vect_s64 = vdupq_n_s64(0);
-    } 
-    return res;
-}
-*/
 FORCE_INLINE __m128i _mm_srli_epi64 (__m128i a, int imm8)
 {
     __m128i res;
